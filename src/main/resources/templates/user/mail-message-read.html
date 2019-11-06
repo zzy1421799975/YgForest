@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head th:include="common/mail :: staticlink('收件箱')">
+<meta charset="utf-8" />
+</head>
+
+<body>
+	<!-- Aside Start-->
+	<aside class="left-panel" th:include="common/navbar :: user_nav"></aside>
+	<!-- Aside Ends-->
+
+	<!--Main Content Start -->
+	<section class="content">
+
+		<!-- Header -->
+		<div th:include="common/header :: user_header"></div>
+
+		<!-- Header Ends -->
+
+
+		<!-- Page Content Start -->
+		<!-- ================== -->
+
+		<div class="wraper container-fluid">
+
+
+			<div class="row">
+
+				<!-- Left sidebar -->
+				<div th:replace="common/mail :: leftsider('message')"></div>
+				<!-- End Left sidebar -->
+
+				<!-- Right sidebar -->
+				<div class="col-sm-9">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="btn-toolbar" role="toolbar">
+								<div class="btn-group">
+									<button type="button" class="btn btn-success">
+										<i class="fa fa-fw fa-level-up fa-rotate-270"></i>
+									</button>
+									<button type="button" class="btn btn-success">
+										<i class="fa fa-exclamation-circle"></i>
+									</button>
+									<button type="button" class="btn btn-success">
+										<i class="fa fa-trash-o"></i>
+									</button>
+								</div>
+								<div class="btn-group">
+									<button type="button" class="btn btn-success dropdown-toggle"
+										data-toggle="dropdown" aria-expanded="false">
+										<i class="fa fa-folder"></i> <b class="caret"></b>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="#fakelink">Action</a></li>
+										<li><a href="#fakelink">Another action</a></li>
+										<li><a href="#fakelink">Something else here</a></li>
+										<li class="divider"></li>
+										<li><a href="#fakelink">Separated link</a></li>
+									</ul>
+								</div>
+								<div class="btn-group">
+									<button type="button" class="btn btn-success dropdown-toggle"
+										data-toggle="dropdown" aria-expanded="false">
+										<i class="fa fa-tag"></i> <b class="caret"></b>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="#fakelink">Action</a></li>
+										<li><a href="#fakelink">Another action</a></li>
+										<li><a href="#fakelink">Something else here</a></li>
+										<li class="divider"></li>
+										<li><a href="#fakelink">Separated link</a></li>
+									</ul>
+								</div>
+
+								<div class="btn-group">
+									<button type="button" class="btn btn-success dropdown-toggle"
+										data-toggle="dropdown" aria-expanded="false">
+										More <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="#fakelink">Dropdown link</a></li>
+										<li><a href="#fakelink">Dropdown link</a></li>
+									</ul>
+								</div>
+
+							</div>
+							<!-- btn-toolbar -->
+						</div>
+						<!-- end col -->
+					</div>
+					<!-- end row -->
+
+
+					<!-- Message -->
+					<div class="panel panel-default m-t-20">
+						<div class="panel-heading">
+							<h3 class="panel-title" th:text="${message.mSubject}">Hi Bro,
+								How are you?</h3>
+						</div>
+						<div class="panel-body">
+							<div class="media m-b-30 ">
+								<a href="#" class="pull-left"> <img alt=""
+									th:src="${sender.uImagepath}" class="media-object thumb-sm">
+								</a>
+								<div class="media-body">
+									<span class="media-meta pull-right" th:text="${#dates.format(message.mTime,'yyyy-MM-dd HH:mm:ss')}">07:23 AM</span>
+
+									<h4 class="text-primary m-0" th:text="${sender.uFullname}">管理员</h4>
+									<small class="text-muted" th:text="'From: '+${sender.uEmail}">From: xm_hhs@163.com</small>
+								</div>
+							</div>
+							<!-- media -->
+							<p th:utext="${message.mContent}">Lorem ipsum dolor sit amet,
+								consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+								Aenean massa. Cum sociis natoque penatibus et magnis dis
+								parturient montes, nascetur ridiculus mus. Donec quam felis,
+								ultricies nec, pellentesque eu, pretium quis, sem.</p>
+							<br />
+							<br />
+							<br />
+							<br />
+							<hr />
+							<div th:if="${message.mFilepath} !=null">
+								<h4>
+									<i class="fa fa-paperclip m-r-10 m-b-10"></i> 附件 <span>(1)</span>
+								</h4>
+								
+								<a th:href="${message.mFilepath}" class="thumb-sm"> <img
+									src="/img/album/sm-img-1.jpg" alt="attachment"
+									class="br-radius m-r-10">
+								</a>
+								<span th:text="${message.mFilepath}"></span>
+							</div>
+
+							<hr />
+						</div>
+						<!-- panel-body -->
+					</div>
+					<!-- End panel -->
+					<!-- End message -->
+
+
+
+				</div>
+				<!-- Col-->
+
+			</div>
+			<!-- End row -->
+
+		</div>
+		<!-- END Wraper -->
+
+
+		<!-- Footer Start -->
+		<div th:include="common/footer :: user_footer"></div>
+		<!-- Footer Ends -->
+
+	</section>
+
+
+
+</body>
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/email-read.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:53:22 GMT -->
+</html>

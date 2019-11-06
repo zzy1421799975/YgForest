@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:52:04 GMT -->
+<head th:include="common/static :: staticlink('数据图表')">
+
+<meta charset="utf-8" />
+<!-- Responsive-table -->
+</head>
+
+<body>
+	<!-- Aside Start-->
+	<aside class="left-panel" th:include="common/navbar :: user_nav"></aside>
+	<!-- Aside Ends-->
+
+	<!--Main Content Start -->
+	<section class="content">
+
+		<!-- Header -->
+		<div th:include="common/header :: user_header"></div>
+		<!-- Header Ends -->
+
+		<!-- Page Content Start -->
+		<!-- ================== -->
+
+		<div class="wraper container-fluid">
+
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								请选择要查看的设备 <select id="selectId">
+									<div th:each="pi,iStat : ${pilist}">
+
+
+										<div th:switch="${pi.pId}">
+											<option th:case="${pId}" th:text="${pi.pName}"
+												th:value="${pi.pId}" selected="selected"></option>
+											<option th:case="*" th:text="${pi.pName}"
+												th:value="${pi.pId}"></option>
+										</div>
+
+
+									</div>
+
+								</select>
+							</h3>
+						</div>
+						<div class="panel-body table-rep-plugin">
+							<div class="table-responsive" data-pattern="priority-columns">
+								<table id="tech-companies-1"
+									class="table table-small-font table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th data-priority="1" width="15%">温度</th>
+											<th data-priority="3" width="15%">湿度</th>
+											<th data-priority="1" width="15%">光照强度</th>
+											<th data-priority="3" width="10%">烟雾警报</th>
+											<th data-priority="3" width="10%">火焰警报</th>
+											<th data-priority="6" width="10%">人体红外警报</th>
+											<th data-priority="6">时间</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="data,iStat : ${pagelist.list}">
+											<th th:text="${data.dId}"></th>
+											<td th:text="${data.dTemperature}+'度'">597.74</td>
+											<td th:text="${data.dHumidity}+'%'">12:12PM</td>
+											<td th:text="${data.dLightintensity}+' Lux'">14.81 (2.54%)</td>
+											<td th:text="${data.dSmoke}">582.93</td>
+											<td th:text="${data.dFlame}">731.10</td>
+											<td th:text="${data.dInfrared}">Spanning cell</td>
+											<td
+												th:text="${#dates.format(data.dTime,'yyyy-MM-dd HH:mm:ss')}">Spanning
+												cell</td>
+										</tr>
+
+									</tbody>
+								</table>
+
+							</div>
+							<div>
+								<div align="right">
+									<ul class="pagination pagination-sm">
+										<!-- 首页 -->
+										<li th:if="${pagelist.pageNum}!=1"><a
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum=1'">首页 </a></li>
+										<li th:if="${pagelist.pageNum}==1" class="disabled"><a
+											href="javascript:void(0)">首页 </a></li>
+										<!-- 上一页 -->
+										<li th:if="${pagelist.hasPreviousPage}"><a
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${pagelist.nextPage}"><i
+												class="fa fa-angle-left"></i></a></li>
+										<li th:if="!${pagelist.hasPreviousPage}" class="disabled"><a
+											href="javascript:void(0)"><i class="fa fa-angle-left"></i></a></li>
+										<!-- for循环 -->
+										<li th:each="item,iStat : ${pagelist.navigatepageNums}">
+											<a th:if="${item}<${pagelist.pageNum}"
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${item}"
+											th:text="${item}">1</a>
+										</li>
+										<!-- 当前页 -->
+										<li class="active"><a
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${pagelist.pageNum}"
+											th:text="${pagelist.pageNum}">1</a></li>
+										<!-- for循环 -->
+										<li th:each="item,iStat : ${pagelist.navigatepageNums}">
+											<a th:if="${item}>${pagelist.pageNum}"
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${item}"
+											th:text="${item}">1</a>
+										</li>
+										<!-- 下一页 -->
+										<li th:if="${pagelist.hasNextPage}"><a
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${pagelist.nextPage}">
+												<i class="fa fa-angle-right"></i>
+										</a></li>
+										<li th:if="!${pagelist.hasNextPage}" class="disabled"><a
+											href="javascript:void(0)"> <i class="fa fa-angle-right"></i>
+										</a></li>
+										<!-- 末页 -->
+										<li th:if="${pagelist.pageNum}!=${pagelist.pages}"><a
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${pagelist.pages}">末页
+										</a></li>
+										<li th:if="${pagelist.pageNum}==${pagelist.pages}"
+											class="disabled"><a href="javascript:void(0)">末页 </a></li>
+
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end row -->
+
+		</div>
+		<!-- Page Content Ends -->
+		<!-- ================== -->
+
+		<!-- Footer Start -->
+		<div th:include="common/footer :: user_footer"></div>
+		<!-- Footer Ends -->
+
+	</section>
+	<!-- Main Content Ends -->
+
+
+	<!-- responsive-table-->
+	<script th:src="@{/assets/responsive-table/rwd-table.min.js}"
+		type="text/javascript"></script>
+	<script type="text/javascript">
+		$("#selectId").change(function() {
+			var index = this.selectedIndex; // 选中索引
+			var text = this.options[index].text; // 选中文本
+			var value = this.options[index].value;
+			location.href = "/show/datalist?pId=" + value;
+		});
+	</script>
+</body>
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/responsive-table.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:53:12 GMT -->
+
+</html>

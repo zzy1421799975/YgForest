@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.YgForest.mapper.HuiZongMapper" >
+  <resultMap id="BaseResultMap" type="com.zsl.YgForest.entity.HuiZong" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="h_id" property="hId" jdbcType="INTEGER" />
+    <result column="h_vxhao" property="hVxhao" jdbcType="INTEGER" />
+    <result column="h_num" property="hNum" jdbcType="VARCHAR" />
+    <result column="h_name" property="hName" jdbcType="VARCHAR" />
+    <result column="h_project" property="hProject" jdbcType="VARCHAR" />
+    <result column="h_danwei" property="hDanwei" jdbcType="VARCHAR" />
+    <result column="h_jibie" property="hJibie" jdbcType="VARCHAR" />
+    <result column="h_time" property="hTime" jdbcType="VARCHAR" />
+    <result column="h_xuefen" property="hXuefen" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

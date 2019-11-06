@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.YgForest.mapper.ImageMapper" >
+  <resultMap id="BaseResultMap" type="com.zsl.YgForest.entity.Image" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="i_id" property="iId" jdbcType="INTEGER" />
+    <result column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="i_imagepath" property="iImagepath" jdbcType="VARCHAR" />
+    <result column="i_density" property="iDensity" jdbcType="DOUBLE" />
+    <result column="i_time" property="iTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectByPidDESC" resultMap="BaseResultMap" >
+		select * from f_image WHERE
+		p_Id=#{param1,jdbcType=INTEGER} order by i_id desc LIMIT #{param2,jdbcType=INTEGER}
+	</select>
+</mapper>

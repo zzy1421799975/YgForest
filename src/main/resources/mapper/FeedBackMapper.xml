@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.YgForest.mapper.FeedBackMapper" >
+  <resultMap id="BaseResultMap" type="com.zsl.YgForest.entity.FeedBack" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="f_id" property="fId" jdbcType="INTEGER" />
+    <result column="u_id" property="uId" jdbcType="INTEGER" />
+    <result column="f_subject" property="fSubject" jdbcType="VARCHAR" />
+    <result column="f_beread" property="fBeread" jdbcType="INTEGER" />
+    <result column="f_time" property="fTime" jdbcType="TIMESTAMP" />
+    <result column="f_content" property="fContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

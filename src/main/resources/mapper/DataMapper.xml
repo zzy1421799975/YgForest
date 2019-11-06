@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.YgForest.mapper.DataMapper">
+	<resultMap id="BaseResultMap" type="com.zsl.YgForest.entity.Data">
+		<!-- WARNING - @mbg.generated -->
+		<id column="d_id" property="dId" jdbcType="INTEGER" />
+		<result column="p_id" property="pId" jdbcType="INTEGER" />
+		<result column="d_temperature" property="dTemperature"
+			jdbcType="DOUBLE" />
+		<result column="d_humidity" property="dHumidity"
+			jdbcType="DOUBLE" />
+		<result column="d_lightintensity" property="dLightintensity"
+			jdbcType="DOUBLE" />
+		<result column="d_smoke" property="dSmoke" jdbcType="INTEGER" />
+		<result column="d_flame" property="dFlame" jdbcType="INTEGER" />
+		<result column="d_infrared" property="dInfrared"
+			jdbcType="INTEGER" />
+		<result column="d_time" property="dTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+
+	<select id="selectByPidDESC" resultMap="BaseResultMap" >
+		select * from f_data WHERE
+		p_Id=#{param1} order by d_id desc LIMIT #{param2,jdbcType=INTEGER}
+	</select>
+</mapper>

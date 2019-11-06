@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsl.YgForest.mapper.RelationMapper">
+  <resultMap id="BaseResultMap" type="com.zsl.YgForest.entity.Relation">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="r_id" jdbcType="INTEGER" property="rId" />
+    <result column="r_sender" jdbcType="INTEGER" property="rSender" />
+    <result column="r_receiver" jdbcType="INTEGER" property="rReceiver" />
+    <result column="r_befriend" jdbcType="INTEGER" property="rBefriend" />
+    <result column="r_sendtime" jdbcType="TIMESTAMP" property="rSendtime" />
+    <result column="r_bindingtime" jdbcType="TIMESTAMP" property="rBindingtime" />
+  </resultMap>
+
+	<update id="agree">
+		UPDATE f_relation SET r_befriend=1,r_bindingtime=#{param3,jdbcType=INTEGER} WHERE r_sender=#{param1,jdbcType=INTEGER} AND r_receiver=#{param2,jdbcType=INTEGER}
+	</update>
+	
+</mapper>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:fragment="staticlink(title)">
+<title th:text="${title}"></title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="img/favicon_1.ico">
+<title th:text="${title}">Velonic - Responsive Admin Dashboard
+	Template</title>
+<!-- Bootstrap core CSS -->
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/css/bootstrap-reset.css}" rel="stylesheet" />
+<!--Animation css-->
+<link th:href="@{/css/animate.css}" rel="stylesheet" />
+<!--Icon-fonts css-->
+<link th:href="@{/assets/font-awesome/css/font-awesome.css}"
+	rel="stylesheet" />
+<link th:href="@{/assets/ionicon/css/ionicons.min.css}" rel="stylesheet" />
+<!--bootstrap-wysihtml5-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css}" />
+<!-- Custom styles for this template -->
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<link th:href="@{/css/helper.css}" rel="stylesheet" />
+</head>
+<body>
+	<div th:fragment="leftsider(type)" class="col-md-3">
+		<a href="/show/compose" class="btn btn-purple btn-block">写信/反馈</a>
+		<div class="panel panel-default p-0  m-t-20">
+			<div class="panel-body p-0">
+				<div class="list-group no-border mail-list">
+					<div th:switch="${type}">
+						<p th:case="'message'">
+							<a href="/show/messagelist" class="list-group-item active"><i
+								class="fa fa-download m-r-5"></i>收件箱 <b>(*)</b></a> <a
+								href="/show/noticelist" class="list-group-item "><i
+								class="fa fa-file-text-o m-r-5"></i>公告收件箱 <b>(*)</b></a> <a
+								href="/show/mysend" class="list-group-item"><i
+								class="fa fa-paper-plane-o m-r-5"></i>已发送</a> <a href="/show/trash"
+								class="list-group-item"><i class="fa fa-trash-o m-r-5"></i>回收站<b>(*)</b></a>
+						</p>
+						<p th:case="'notice'">
+							<a href="/show/messagelist" class="list-group-item"><i
+								class="fa fa-download m-r-5"></i>收件箱 <b>(*)</b></a> <a
+								href="/show/noticelist" class="list-group-item active"><i
+								class="fa fa-file-text-o m-r-5"></i>公告收件箱 <b>(*)</b></a> <a
+								href="/show/mysend" class="list-group-item"><i
+								class="fa fa-paper-plane-o m-r-5"></i>已发送</a> <a href="/show/trash"
+								class="list-group-item"><i class="fa fa-trash-o m-r-5"></i>回收站<b>(*)</b></a>
+						</p>
+						<p th:case="'mysend'">
+							<a href="/show/messagelist" class="list-group-item"><i
+								class="fa fa-download m-r-5"></i>收件箱 <b>(*)</b></a> <a
+								href="/show/noticelist" class="list-group-item "><i
+								class="fa fa-file-text-o m-r-5"></i>公告收件箱 <b>(*)</b></a> <a
+								href="/show/mysend" class="list-group-item active"><i
+								class="fa fa-paper-plane-o m-r-5"></i>已发送</a> <a href="/show/trash"
+								class="list-group-item"><i class="fa fa-trash-o m-r-5"></i>回收站<b>(*)</b></a>
+						</p>
+						<p th:case="'trash'">
+							<a href="/show/messagelist" class="list-group-item"><i
+								class="fa fa-download m-r-5"></i>收件箱 <b>(*)</b></a> <a
+								href="/show/noticelist" class="list-group-item "><i
+								class="fa fa-file-text-o m-r-5"></i>公告收件箱 <b>(*)</b></a> <a
+								href="/show/mysend" class="list-group-item"><i
+								class="fa fa-paper-plane-o m-r-5"></i>已发送</a> <a href="/show/trash"
+								class="list-group-item active"><i
+								class="fa fa-trash-o m-r-5"></i>回收站<b>(*)</b></a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:fragment="adminleftsider(type)" class="col-md-3">
+		<a href="/admin/compose" class="btn btn-purple btn-block">发布公告</a>
+		<div class="panel panel-default p-0  m-t-20">
+			<div class="panel-body p-0">
+				<div class="list-group no-border mail-list">
+					<div th:switch="${type}">
+						<p th:case="'feedback'">
+							<a href="/admin/feedback" class="list-group-item active"><i
+						class="fa fa-download m-r-5"></i>反馈收件箱 <b>(*)</b></a> <a
+						href="/admin/noticelist" class="list-group-item "><i
+						class="fa fa-file-text-o m-r-5"></i>已发布公告 <b>(*)</b></a> 
+						</p>
+						<p th:case="'notice'">
+							<a href="/admin/feedback" class="list-group-item"><i
+						class="fa fa-download m-r-5"></i>反馈收件箱 <b>(*)</b></a> <a
+						href="/admin/noticelist" class="list-group-item active"><i
+						class="fa fa-file-text-o m-r-5"></i>已发布公告 <b>(*)</b></a> 
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

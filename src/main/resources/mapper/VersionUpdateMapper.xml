@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsl.YgForest.VersionUpdateMapper">
+  <resultMap id="BaseResultMap" type="com.zsl.YgForest.entity.VersionUpdate">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="v_id" jdbcType="INTEGER" property="vId" />
+    <result column="v_piversion" jdbcType="VARCHAR" property="vPiversion" />
+    <result column="v_picontent" jdbcType="VARCHAR" property="vPicontent" />
+    <result column="v_pipath" jdbcType="VARCHAR" property="vPipath" />
+    <result column="v_appname" jdbcType="VARCHAR" property="vAppname" />
+    <result column="v_appversion" jdbcType="VARCHAR" property="vAppversion" />
+    <result column="v_appcontent" jdbcType="VARCHAR" property="vAppcontent" />
+    <result column="v_time" jdbcType="TIMESTAMP" property="vTime" />
+  </resultMap>
+
+</mapper>

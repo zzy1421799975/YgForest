@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:52:04 GMT -->
+<head th:include="common/static :: staticlink('所有设备')">
+<meta charset="utf-8" />
+
+</head>
+
+
+<body>
+	<!-- Aside Start-->
+	<aside class="left-panel" th:include="common/navbar :: user_nav"></aside>
+	<!-- Aside Ends-->
+
+
+	<!--Main Content Start -->
+	<section class="content">
+
+		<!-- Header -->
+		<div th:include="common/header :: user_header"></div>
+		<!-- Header Ends -->
+
+
+
+		<!-- Page Content Start -->
+		<!-- ================== -->
+
+		<div class="wraper container-fluid">
+			<div class="page-title">
+				<h3 class="title">查看设备</h3>
+			</div>
+
+
+			<div class="panel">
+
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="m-b-30">
+								<button id="addToTable"
+									class="btn btn-primary waves-effect waves-light">
+									Add <i class="fa fa-plus"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<table class="table table-bordered table-striped"
+						id="datatable-editable">
+						<thead>
+							<tr>
+								<th>序列号</th>
+								<th>设备名</th>
+								<th>备注</th>
+								<th>延迟(秒)</th>
+								<th>密钥</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="pi,iStat : ${pilist}">
+
+								<td th:text="${pi.pId}">1</td>
+								<td th:text="${pi.pName}">设备1</td>
+								<td th:text="${pi.pRemark}">学院路</td>
+								<td th:text="${pi.pDelayed}">2000</td>
+								<td>************</td>
+								<td class="actions"><a href="javascript:void(0)"
+									class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+									<a href="javascript:void(0)"
+									class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+									<a href="javascript:void(0)" class="on-default edit-row"><i
+										class="fa fa-pencil"></i></a> <a href="javascript:void(0)"
+									class="on-default sa-warning" th:pId="${pi.pId}"><i
+										class="fa fa-trash-o"></i></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- end: page -->
+
+
+			</div>
+			<!-- end Panel -->
+
+
+		</div>
+		<!-- Page Content Ends -->
+		<!-- ================== -->
+
+		<!-- Footer Start -->
+		<div th:include="common/footer :: user_footer"></div>
+		<!-- Footer Ends -->
+
+
+
+	</section>
+	<!-- Main Content Ends -->
+
+
+	<!-- MODAL -->
+	<div id="dialog" class="modal-block mfp-hide">
+		<section class="panel panel-info panel-color">
+			<header class="panel-heading">
+				<h2 class="panel-title">请再次确认?</h2>
+			</header>
+			<div class="panel-body">
+				<div class="modal-wrapper">
+					<div class="modal-text">
+						<input type="hidden" id="deleteHaulId" />
+
+						<p>请问是否要删除所绑定设备，删除不可逆，若删除后需重新输入设备编码以及密钥进行绑定?</p>
+					</div>
+				</div>
+
+				<div class="row m-t-20">
+					<div class="col-md-12 text-right">
+						<button id="dialogConfirm" class="btn btn-primary">确定删除</button>
+						<button id="dialogCancel" class="btn btn-default">取消</button>
+					</div>
+				</div>
+			</div>
+
+		</section>
+	</div>
+
+
+
+
+	<!-- Examples -->
+	<script th:src="@{/assets/magnific-popup/magnific-popup.js}"></script>
+	<script
+		th:src="@{/assets/jquery-datatables-editable/jquery.dataTables.js}"></script>
+	<script th:src="@{/assets/datatables/dataTables.bootstrap.js}"></script>
+	<script
+		th:src="@{/assets/jquery-datatables-editable/datatables.editable.init.js}"></script>
+
+
+
+	<script type="text/javascript">
+		
+		//Warning Message
+		$('.sa-warning').click(
+				function(e) {
+					var that=this;
+					var val = this.getAttribute('pId');
+					swal({
+						title : "再次确认!",
+						text : "请问是否要删除所绑定设备，删除不可逆，若删除后需重新输入设备编码以及密钥进行绑定?",
+						type : "warning",
+						showCancelButton : true,
+						confirmButtonColor : "#DD6B55",
+						confirmButtonText : "Yes, delete it!",
+						closeOnConfirm : false
+					}, function() {
+						$.ajax({
+							url : "/api/pi/JSremove",
+							type : "POST",
+							dataType : "json",
+							async:false,
+							contentType : "application/json",
+							data : JSON.stringify({
+								"pId" : val
+							}),
+							success : function(result) {
+								if (result.status != 200) {
+									alert(result.msg);
+								}else{
+									$(that).parent().parent().remove();
+									swal("Deleted!",
+								"Your imaginary file has been deleted.",
+								"success");
+									//location.reload();
+								}
+							}
+						});
+					});
+				});
+	</script>
+
+</body>
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/tables-editable.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:53:11 GMT -->
+</html>

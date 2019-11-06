@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/email-compose.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:53:22 GMT -->
+<head th:include="common/mail :: staticlink('收件箱')">
+<meta charset="utf-8" />
+</head>
+<body>
+	<!-- Aside Start-->
+	<aside class="left-panel" th:include="common/navbar :: user_nav"></aside>
+	<!-- Aside Ends-->
+
+	<!--Main Content Start -->
+	<section class="content">
+
+		<!-- Header -->
+		<div th:include="common/header :: user_header"></div>
+		<!-- Header Ends -->
+
+
+
+		<!-- Page Content Start -->
+		<div class="wraper container-fluid">
+			<div class="row">
+
+				<!-- Left sidebar -->
+				<div th:replace="common/mail :: leftsider(message)"></div>
+				<!-- End Left sidebar -->
+
+				<!-- Right Sidebar -->
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="btn-toolbar" role="toolbar">
+								<div class="pull-right">
+									<button type="button" class="btn btn-success m-r-5">
+										<i class="fa fa-floppy-o"></i>
+									</button>
+									<button type="button" class="btn btn-success m-r-5">
+										<i class="fa fa-trash-o"></i>
+									</button>
+									<button class="btn btn-purple" onclick="sendTo()" id="sendBtn">
+										<span>Send</span> <i class="fa fa-send m-l-10"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default m-t-20">
+						<div class="panel-body p-t-10">
+
+							<form role="form" action="/">
+								<div class="form-group col-md-9">
+									<input type="email" class="form-control " placeholder="To"
+										name="toName" id="toName" disabled="disabled" value="管理员">
+								</div>
+								<div class="form-group col-md-3">
+									<select class="form-control" id="selectId">
+										<option>反馈</option>
+										<option th:if="${recv}==null">写信</option>
+										<option th:if="${recv}!=null" selected="selected">写信</option>
+									</select>
+								</div>
+								<!-- <div class="form-group">
+									<div class="row">
+										<div class="col-md-6">
+											<input type="email" class="form-control" placeholder="Cc">
+										</div>
+										<div class="col-md-6">
+											<input type="email" class="form-control" placeholder="Bcc">
+										</div>
+									</div>
+								</div> -->
+								<div class="form-group col-md-9">
+									<input type="text" class="form-control" placeholder="Subject"
+										name="subject" id="subject">
+								</div>
+								<div class="form-group col-md-3">
+									<select class="form-control" id="beEmail">
+										<option value="0">是否发送邮箱通知?</option>
+										<option value="1">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+								<div class="form-group col-md-12">
+									<textarea class="wysihtml5 form-control"
+										placeholder="Message body" style="height: 200px"
+										name="content" id="content"></textarea>
+								</div>
+							</form>
+						</div>
+						<!-- panel -body -->
+					</div>
+					<!-- panel -->
+				</div>
+				<!-- End Rightsidebar -->
+
+			</div>
+			<!-- End row -->
+
+		</div>
+		<!-- END Wraper -->
+
+		<!-- Footer Start -->
+		<div th:include="common/footer :: user_footer"></div>
+		<!-- Footer Ends -->
+
+	</section>
+
+
+	<!--form validation-->
+	<script type="text/javascript"
+		th:src="@{/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js}"></script>
+
+	<script th:inline="javascript">
+		jQuery(document).ready(function() {
+			$('.wysihtml5').wysihtml5();
+			change();
+		});
+		
+		$("#selectId").change(function(){
+			change();
+		});
+		function change(){
+			var p1 = $("#selectId").children('option:selected').val();//这就是selected的值
+			if (p1 == "写信") {
+				$("#toName").attr('disabled', false);
+				$("#toName").val([[${recv}]]);
+			} else {
+				$("#toName").attr('disabled', true);
+				$("#toName").val("管理员");
+			}
+		}
+
+		function sendTo() {
+			var name = $("#toName").val();
+			var subject = $("#subject").val();
+			var content = $("#content").val();
+			var email = $("#beEmail").val();
+			if (name.length < 1) {
+				alert("请填写收件人。");
+			} else if (subject.length < 1) {
+				alert("请填写标题。");
+			} else if (content.length < 1) {
+				alert("请填写内容。");
+			} else {
+				$.ajax({
+					url : "/api/user/sendMessage",
+					type : "POST",
+					dataType : "json",
+					data : {
+						"name" : name,
+						"subject" : subject,
+						"content" : content,
+						"beemail":email
+					},
+					success : function(result) {
+						if (result.status == 200) {
+							alert('发送成功!');
+							location.href = "/show/mysend";
+						}else{
+							alert(result.msg);
+						}
+					}
+				});
+			}
+		}
+	</script>
+
+
+
+</body>
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/email-compose.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:53:22 GMT -->
+</html>

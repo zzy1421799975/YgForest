@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:52:04 GMT -->
+<head th:include="common/static :: staticlink('历史数据')">
+<meta charset="utf-8" />
+</head>
+<body>
+	<!-- Aside Start-->
+	<aside class="left-panel" th:include="common/navbar :: user_nav"></aside>
+	<!-- Aside Ends-->
+
+	<!--Main Content Start -->
+	<section class="content">
+
+		<!-- Header -->
+		<div th:include="common/header :: user_header"></div>
+		<!-- Header Ends -->
+
+		<!-- Page Content Start -->
+		<!-- ================== -->
+
+		<div class="wraper container-fluid">
+
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								请选择要查看的设备 <select id="selectId">
+									<p th:each="pi,iStat : ${pilist}">
+										<sw th:switch="${pi.pId}">
+											<option th:case="${pId}" th:text="${pi.pName}"
+												th:value="${pi.pId}" selected="selected"></option>
+											<option th:case="*" th:text="${pi.pName}"
+												th:value="${pi.pId}"></option>
+										</sw>
+									</p>
+								</select>
+							</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- end row -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="portlet">
+						<!-- /primary heading -->
+						<div class="portlet-heading">
+							<h3 id="title" class="portlet-title text-dark">数据曲线图</h3>
+							<div class="portlet-widgets">
+								<a href="javascript:;" data-toggle="reload"><i
+									class="ion-refresh"></i></a> <span class="divider"></span> <a
+									data-toggle="collapse" data-parent="#accordion1"
+									href="#portlet4"><i class="ion-minus-round"></i></a> <span
+									class="divider"></span>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div id="portlet4" class="panel-collapse collapse in">
+							<div class="portlet-body">
+								<div id="chart-stacked"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- End row -->
+
+		</div>
+		<!-- Page Content Ends -->
+		<!-- ================== -->
+
+		<!-- Footer Start -->
+		<div th:include="common/footer :: user_footer"></div>
+		<!-- Footer Ends -->
+
+	</section>
+	<!-- Main Content Ends -->
+
+	<script type="text/javascript" th:inline="javascript">
+		function dateToStr(datetime){ 
+			 var hour = datetime.getHours(); 
+			 var minutes = datetime.getMinutes(); 
+			 var second = datetime.getSeconds();
+			 if(hour <10){
+			  hour = "0" + hour;
+			 }
+			 if(minutes <10){
+			  minutes = "0" + minutes;
+			 }
+			 if(second <10){
+			  second = "0" + second ;
+			 }
+			 var time = hour+":"+minutes; //2009-06-12 17:18:05
+			// alert(time);
+			 return time;
+		}
+		function dateToMonth(datetime){ 
+			
+			 var year = datetime.getFullYear();
+			 var month = datetime.getMonth()+1;//js从0开始取 
+			 var date = datetime.getDate(); 
+			 
+			 if(month<10){
+			  month = "0" + month;
+			 }
+			 if(date<10){
+			  date = "0" + date;
+			 }
+			 var time = year+"-"+month+"-"+date; //2009-06-12 17:18:05
+			// alert(time);
+			 return time;
+		}
+
+
+	
+		$("#selectId").change(function() {
+			var index = this.selectedIndex; // 选中索引
+			var text = this.options[index].text; // 选中文本
+			var value = this.options[index].value;
+			location.href = "/show/datachart?pId=" + value; 
+		});
+		var chart=c3.generate({
+			bindto : '#chart-stacked',
+			data : {
+				 x: 'x',
+				columns : []
+			},
+		    axis : {
+		        x : {
+		            type : 'category',
+		            label: {
+		                text: '',
+		                position: 'outer-center'
+		            }
+		        }
+		    }
+    	})
+    	c3init()
+		
+		
+		function c3init(){
+			$.ajax({
+	            url : "/api/data/selectListDesc",
+	            type : "POST",
+	            dataType:"json",
+	            contentType : "application/json",
+	            <!-- 向后端传输的数据 -->
+	            data : JSON.stringify({
+	            	"pId" : [[${pId}]],
+	            	"limitNum":20
+	            }),
+	            success:function(result) {
+	            	var arr=result.data;
+	            	var temp=new Array();
+	            	temp[0]='温度';
+	            	var hum=new Array();
+	            	hum[0]='湿度';
+	            	var light=new Array();
+	            	light[0]='光强';
+	            	var time=new Array();
+	            	time[0]='x';
+	            	var i=0;
+	            	var len=arr.length;
+	            	//alert(len)
+	            	for(j = len-1; j >=0; j--) {
+	            		temp[i+1]=arr[j].dTemperature;
+	            		hum[i+1]=arr[j].dHumidity;
+	            		light[i+1]=arr[j].dLightintensity;
+	            		time[i+1]=arr[j].dTime.substring(11,16);
+						i++
+	            	}
+	            	$("#title").html('数据曲线图   ('+arr[i-1].dTime.substring(0,10)+')')
+	            	chart.load({
+	            	    	columns : [
+	    						time,
+	    						temp,
+	    						hum,
+	    						light ]
+	            	});
+	            	setTimeout(function () {
+	        			c3init()
+	        	    }, 10000);
+	            }
+	        });
+			
+		}
+		
+	</script>
+</body>
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/responsive-table.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:53:12 GMT -->
+
+</html>

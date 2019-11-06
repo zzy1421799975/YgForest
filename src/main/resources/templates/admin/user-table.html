@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:52:04 GMT -->
+<head th:include="common/static :: staticlink('所有用戶')">
+
+<meta charset="utf-8" />
+<!-- Responsive-table -->
+</head>
+
+<body>
+	<!-- Aside Start-->
+	<aside class="left-panel" th:include="common/navbar :: user_nav"></aside>
+	<!-- Aside Ends-->
+
+	<!--Main Content Start -->
+	<section class="content">
+
+		<!-- Header -->
+		<div th:include="common/header :: user_header"></div>
+		<!-- Header Ends -->
+
+		<!-- Page Content Start -->
+		<!-- ================== -->
+
+		<div class="wraper container-fluid">
+
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+
+						<div class="panel-heading">
+							<h3 class="panel-title">管理所有用户</h3>
+						</div>
+						<div class="panel-body table-rep-plugin">
+							<div class="table-responsive" data-pattern="priority-columns">
+								<table id="tech-companies-1"
+									class="table table-small-font table-bordered table-striped">
+									<thead>
+										<tr>
+											<th data-priority="1" width="5%">用户序号</th>
+											<th data-priority="3">姓名</th>
+											<th data-priority="1">电话</th>
+											<th data-priority="3">邮箱</th>
+											<th data-priority="3">余额</th>
+											<th data-priority="6" width="10%">允许登录权限</th>
+											<th data-priority="6" width="10%">超管权限</th>
+											<th data-priority="6">最近登录时间</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="user,iStat : ${userlist}">
+											<th th:text="${user.uId}"></th>
+											<td th:text="${user.uFullname}">597.74</td>
+											<td th:text="${user.uTelephone}">12:12PM</td>
+											<td th:text="${user.uEmail}">14.81 (2.54%)</td>
+											<td th:text="${user.uMoney}">582.93</td>
+											
+											<td th:switch="${user.uBelogin}">
+											<a th:case="1" th:href="'javascript:change('+${user.uId}+',0,'+${user.uBeadmin}+')'">禁止登陆</a>
+												<a th:case="0" th:href="'javascript:change('+${user.uId}+',1,'+${user.uBeadmin}+')'">允许登录</a></td>
+												
+											<td th:text="${user.uBeadmin}">731.10</td>
+											<td
+												th:text="${#dates.format(user.uLastlogintime,'yyyy-MM-dd HH:mm:ss')}">Spanning
+												cell</td>
+										</tr>
+
+									</tbody>
+								</table>
+
+							</div>
+							<!--
+							<div>
+								<div align="right">
+									<ul class="pagination pagination-sm">
+										
+										<li th:if="${pagelist.pageNum}!=1"><a
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum=1'">首页 </a></li>
+										<li th:if="${pagelist.pageNum}==1" class="disabled"><a
+											href="javascript:void(0)">首页 </a></li>
+										
+										<li th:if="${pagelist.hasPreviousPage}"><a
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${pagelist.nextPage}"><i
+												class="fa fa-angle-left"></i></a></li>
+										<li th:if="!${pagelist.hasPreviousPage}" class="disabled"><a
+											href="javascript:void(0)"><i class="fa fa-angle-left"></i></a></li>
+										
+										<li th:each="item,iStat : ${pagelist.navigatepageNums}">
+											<a th:if="${item}<${pagelist.pageNum}"
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${item}"
+											th:text="${item}">1</a>
+										</li>
+										
+										<li class="active"><a
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${pagelist.pageNum}"
+											th:text="${pagelist.pageNum}">1</a></li>
+										
+										<li th:each="item,iStat : ${pagelist.navigatepageNums}">
+											<a th:if="${item}>${pagelist.pageNum}"
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${item}"
+											th:text="${item}">1</a>
+										</li>
+										
+										<li th:if="${pagelist.hasNextPage}"><a
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${pagelist.nextPage}">
+												<i class="fa fa-angle-right"></i>
+										</a></li>
+										<li th:if="!${pagelist.hasNextPage}" class="disabled"><a
+											href="javascript:void(0)"> <i class="fa fa-angle-right"></i>
+										</a></li>
+										
+										<li th:if="${pagelist.pageNum}!=${pagelist.pages}"><a
+											th:href="'/show/datalist?pId='+${pId}+'&pageNum='+${pagelist.pages}">末页
+										</a></li>
+										<li th:if="${pagelist.pageNum}==${pagelist.pages}"
+											class="disabled"><a href="javascript:void(0)">末页 </a></li>
+
+									</ul>
+								</div>  
+							</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end row -->
+
+		</div>
+		<!-- Page Content Ends -->
+		<!-- ================== -->
+
+		<!-- Footer Start -->
+		<div th:include="common/footer :: user_footer"></div>
+		<!-- Footer Ends -->
+
+	</section>
+	<!-- Main Content Ends -->
+
+
+	<!-- responsive-table-->
+	<script th:src="@{/assets/responsive-table/rwd-table.min.js}"
+		type="text/javascript"></script>
+
+	<script>
+	function change(uId,uBelogin,uBeadmin){
+		if(uBeadmin==1){
+			alert('超级管理员不能被禁止登录，有问题请联系开发者xm_hhs@163.com。')
+			return
+		}else{
+			$.ajax({
+	            url : "/api/user/update",
+	            type : "POST",
+	            dataType:"json",
+	            contentType : "application/json",
+	            <!-- 向后端传输的数据 -->
+	            data : JSON.stringify({
+	            	"uId" : uId,
+	            	"uBelogin":uBelogin
+	            }),
+	            success:function(result) {
+	            	window.location.reload();
+	            }
+	        });
+		}
+	}
+	</script>
+</body>
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/responsive-table.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:53:12 GMT -->
+
+</html>

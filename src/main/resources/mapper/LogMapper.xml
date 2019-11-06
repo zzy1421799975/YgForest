@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsl.YgForest.mapper.LogMapper">
+	<resultMap id="BaseResultMap" type="com.zsl.YgForest.entity.Log">
+		<!-- WARNING - @mbg.generated -->
+		<id column="l_id" jdbcType="INTEGER" property="lId" />
+		<result column="u_id" jdbcType="INTEGER" property="uId" />
+		<result column="l_subject" jdbcType="VARCHAR"
+			property="lSubject" />
+		<result column="l_content" jdbcType="VARCHAR"
+			property="lContent" />
+		<result column="l_type" jdbcType="INTEGER" property="lType" />
+		<result column="l_time" jdbcType="TIMESTAMP" property="lTime" />
+	</resultMap>
+	<select id="mySelectAll" resultMap="BaseResultMap">
+		select * from f_log
+	</select>
+</mapper>

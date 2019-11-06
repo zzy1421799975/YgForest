@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.YgForest.mapper.UserMapper">
+	<resultMap id="BaseResultMap" type="com.zsl.YgForest.entity.User">
+		<!-- WARNING - @mbg.generated -->
+		<id column="u_id" property="uId" jdbcType="INTEGER" />
+		<result column="u_username" property="uUsername"
+			jdbcType="VARCHAR" />
+		<result column="u_password" property="uPassword"
+			jdbcType="VARCHAR" />
+		<result column="u_fullname" property="uFullname"
+			jdbcType="VARCHAR" />
+		<result column="u_realmname" property="uRealmname"
+			jdbcType="VARCHAR" />
+		<result column="u_telephone" property="uTelephone"
+			jdbcType="VARCHAR" />
+		<result column="u_email" property="uEmail" jdbcType="VARCHAR" />
+		<result column="u_aboutme" property="uAboutme"
+			jdbcType="VARCHAR" />
+		<result column="u_money" property="uMoney" jdbcType="DOUBLE" />
+		<result column="u_cid" property="uCid"
+			jdbcType="VARCHAR" />
+		
+		<result column="u_imagepath" property="uImagepath"
+			jdbcType="VARCHAR" />
+		<result column="u_longitude" property="uLongitude"
+			jdbcType="DOUBLE" />
+		<result column="u_latitude" property="uLatitude"
+			jdbcType="DOUBLE" />
+		<result column="u_ipaddress" property="uIpaddress"
+			jdbcType="VARCHAR" />
+		<result column="u_belogin" property="uBelogin"
+			jdbcType="INTEGER" />
+		<result column="u_beemail" property="uBeemail"
+			jdbcType="INTEGER" />
+		<result column="u_beadmin" property="uBeadmin"
+			jdbcType="INTEGER" />	
+			
+		<result column="u_regtime" property="uRegtime"
+			jdbcType="TIMESTAMP" />
+		<result column="u_lastlogintime" property="uLastlogintime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="selectFriend" resultMap="BaseResultMap">
+		select * from f_user where
+		u_id IN (SELECT r_sender FROM
+		f_relation where
+		r_receiver =
+		#{param1,jdbcType=INTEGER} AND r_befriend
+		=1)
+		OR u_id IN (SELECT r_receiver FROM
+		f_relation where r_sender =
+		#{param1,jdbcType=INTEGER} AND r_befriend
+		=1)
+	</select>
+	<select id="selectFriending" resultMap="BaseResultMap">
+		select * from f_user
+		where u_id IN (SELECT r_sender FROM
+		f_relation where
+		r_receiver =
+		#{param1,jdbcType=INTEGER} AND r_befriend
+		=0)
+	</select>
+	<select id="selectByKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT * FROM f_user WHERE u_fullname LIKE
+		#{key,jdbcType=VARCHAR} OR u_telephone LIKE #{key,jdbcType=VARCHAR} OR
+		u_email LIKE #{key,jdbcType=VARCHAR}
+	</select>
+
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsl.YgForest.mapper.MessageMapper">
+	<resultMap id="BaseResultMap"
+		type="com.zsl.YgForest.entity.Message">
+		<!-- WARNING - @mbg.generated -->
+		<id column="m_id" jdbcType="INTEGER" property="mId" />
+		<result column="m_subject" jdbcType="VARCHAR"
+			property="mSubject" />
+		<result column="m_content" jdbcType="VARCHAR"
+			property="mContent" />
+		<result column="m_filepath" jdbcType="VARCHAR"
+			property="mFilepath" />
+		<result column="m_sender" jdbcType="INTEGER" property="mSender" />
+		<result column="m_receiver" jdbcType="INTEGER"
+			property="mReceiver" />
+		<result column="m_beemail" jdbcType="INTEGER"
+			property="mBeemail" />
+		<result column="m_beread" jdbcType="INTEGER" property="mBeread" />
+		<result column="m_time" jdbcType="TIMESTAMP" property="mTime" />
+		<result column="m_betrash" jdbcType="INTEGER"
+			property="mBetrash" />
+			<result column="m_type" jdbcType="INTEGER"
+			property="mType" />
+			
+	</resultMap>
+
+	<select id="selectByUid" resultMap="BaseResultMap">
+		select * FROM f_message WHERE m_subject='chat' and ((m_sender=#{param1,jdbcType=INTEGER} and
+		m_receiver=#{param2,jdbcType=INTEGER}) or
+		(m_sender=#{param2,jdbcType=INTEGER} and
+		m_receiver=#{param1,jdbcType=INTEGER}))
+	</select>
+
+</mapper>

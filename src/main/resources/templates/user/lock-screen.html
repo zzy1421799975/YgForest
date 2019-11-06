@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:52:04 GMT -->
+<head th:include="common/static :: staticlink('请重新登录')">
+<meta charset="utf-8" />
+</head>
+
+
+<body>
+
+	<div class="wrapper-page animated fadeInDown">
+		<div class="panel panel-color panel-primary">
+
+			<form method="post"
+				action="/relogin"
+				role="form" class="text-center">
+				<div class="user-thumb">
+					<img th:src="${user.uImagepath}"
+						class="img-responsive img-circle thumb-lg" alt="null image">
+				</div>
+				<div class="form-group">
+					<h3 th:text="${user.uRealmname}">John Deo</h3>
+					<div th:switch="${err}">
+						<p th:case="'1'">登录已失效，请重新输入密码登录。</p>
+						<p th:case="*">密码错误，请重新输入密码或选择其他帐号登录。</p>
+					</div>
+						
+					
+					<div class="input-group">
+						<input type="password" class="form-control" placeholder="Password" name="uPassword">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-primary">Log In</button>
+						</span>
+					</div>
+				</div>
+				<div class="text-right">
+					<a href="/sign_in"><span th:text="'Not '+${user.uRealmname}+' ?'">Not John Deo ?</span></a>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+
+
+	<!-- js placed at the end of the document so the pages load faster -->
+	<script th:src="@{js/jquery.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
+	<script th:src="@{js/pace.min.js}"></script>
+	<script th:src="@{js/wow.min.js}"></script>
+	<script th:src="@{js/jquery.nicescroll.js}" type="text/javascript"></script>
+
+
+	<!--common script for all pages-->
+	<script th:src="@{js/jquery.app.js}"></script>
+
+
+</body>
+
+<!-- Mirrored from coderthemes.com/velonic_3.0/admin_3/lock-screen.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 May 2016 14:53:39 GMT -->
+</html>

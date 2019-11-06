@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.YgForest.mapper.PiMapper">
+	<resultMap id="BaseResultMap" type="com.zsl.YgForest.entity.Pi">
+		<!-- WARNING - @mbg.generated -->
+		<id column="p_id" property="pId" jdbcType="INTEGER" />
+		<result column="p_name" property="pName" jdbcType="VARCHAR" />
+		<result column="p_remark" property="pRemark" jdbcType="VARCHAR" />
+		<result column="p_ipaddress" property="pIpaddress"
+			jdbcType="VARCHAR" />
+		<result column="p_password" property="pPassword"
+			jdbcType="VARCHAR" />
+		<result column="p_threshold" property="pThreshold"
+			jdbcType="INTEGER" />
+		<result column="p_delayed" property="pDelayed"
+			jdbcType="INTEGER" />
+		<result column="p_switchstate" property="pSwitchstate"
+			jdbcType="INTEGER" />
+		<result column="p_bootstate" property="pBootstate"
+			jdbcType="INTEGER" />
+		<result column="p_longitude" property="pLongitude"
+			jdbcType="DOUBLE" />
+		<result column="p_latitude" property="pLatitude"
+			jdbcType="DOUBLE" />
+		<result column="p_createtime" property="pCreatetime"
+			jdbcType="TIMESTAMP" />
+		<result column="p_starttime" property="pStarttime"
+			jdbcType="TIMESTAMP" />
+		<result column="p_livetime" property="pLivetime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="selectListByUid" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select *
+		from f_pi
+		where p_id in (SELECT p_id FROM
+		f_user_pi_relation where u_id =
+		#{uId,jdbcType=INTEGER})
+	</select>
+</mapper>

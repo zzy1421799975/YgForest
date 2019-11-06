@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="user_nav">
+		<!-- brand -->
+		<div class="logo">
+			<a href="/" class="logo-expanded"> <i class="ion-social-buffer"></i>
+				<span class="nav-label">Forest</span>
+			</a>
+		</div>
+		<nav class="navigation">
+			<ul class="list-unstyled">
+				<li class="active"><a href="/"><i class="ion-home"></i> <span
+						class="nav-label">首页</span></a></li>
+				<li class="has-submenu"><a href="#"><i class="ion-grid"></i>
+						<span class="nav-label">我的设备</span></a>
+					<ul class="list-unstyled">
+						<li><a href="/show/pilist">设备管理</a></li>
+						<li><a href="/show/image">图片查看</a></li>
+						<li><a href="/show/pichart">郁闭度图表</a></li>
+					</ul></li>
+				<li class="has-submenu"><a href="#"><i
+						class="ion-stats-bars"></i> <span class="nav-label">数据分析</span><span
+						class="badge bg-purple">1</span></a>
+					<ul class="list-unstyled">
+						<li><a href="/show/datalist">历史数据</a></li>
+						<li><a href="/show/datachart">数据图表</a></li>
+					</ul></li>
+
+				<li class="has-submenu"><a href="#"><i class="ion-email"></i>
+						<span class="nav-label">消息</span></a>
+					<ul class="list-unstyled">
+						<li><a href="/show/compose">写信</a></li>
+						<li><a href="/show/messagelist">收件箱</a></li>
+						<li><a href="/show/noticelist">公告收件箱</a></li>
+					</ul></li>
+				<shiro:hasRole name="ADMIN">
+					<li class="has-submenu"><a href="#"><i
+							class="ion-person"></i> <span class="nav-label">管理员</span></a>
+						<ul class="list-unstyled">
+							<li><a href="/admin/compose"> 发布公告 </a></li>
+							<li><a href="/admin/feedback"> 所有反馈 </a></li>
+							<li><a href="/admin/allpi"> 所有设备 </a></li>
+							<li><a href="/admin/alluser"> 所有用户 </a></li>
+						</ul></li>
+				</shiro:hasRole>
+				<li class="has-submenu"><a href="#"><i class="ion-location"></i>
+						<span class="nav-label">社交</span></a>
+					<ul class="list-unstyled">
+						<li><a href="/show/newfriend"> 新朋友 </a></li>
+						<li><a href="/show/friend"> 我的好友 </a></li>
+					</ul></li>
+				<li class="has-submenu"><a href="#"><i class="ion-document"></i>
+						<span class="nav-label">关于</span><span class="badge bg-pink">5</span></a>
+					<ul class="list-unstyled">
+						<li><a href="/show/compose">反馈</a></li>
+						<li><a href="/myfile/app-debug.apk">APP下载</a></li>
+						<li><a href="/about">关于我们</a></li>
+					</ul></li>
+			</ul>
+		</nav>
+	</div>
+
+</body>
+</html>
