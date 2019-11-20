@@ -6,7 +6,7 @@
 
 	<groupId>com.zsl</groupId>
 	<artifactId>YgForest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.9</version>
 	<packaging>jar</packaging>
 
 	<name>YgForest</name>
@@ -84,13 +84,13 @@
 			<scope>compile</scope>
 			<optional>true</optional>
 		</dependency>
-		<!--Í¨ÓÃmapper -->
+		<!--Í¨ï¿½ï¿½mapper -->
 		<dependency>
 			<groupId>tk.mybatis</groupId>
 			<artifactId>mapper-spring-boot-starter</artifactId>
 			<version>1.2.4</version>
 		</dependency>
-		<!--·ÖÒ³pagehelper -->
+		<!--ï¿½ï¿½Ò³pagehelper -->
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
@@ -101,7 +101,7 @@
 			<artifactId>druid</artifactId>
 			<version>1.1.0</version>
 		</dependency>
-		<!-- °¢Àï¶ÌÐÅsdk -->
+		<!-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sdk -->
 		<dependency>
 			<groupId>com.aliyun</groupId>
 			<artifactId>aliyun-java-sdk-core</artifactId>
@@ -138,7 +138,7 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.47</version>
 		</dependency>
-		<!-- ÏûÏ¢ÍÆËÍ -->
+		<!-- ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ -->
 		<dependency>
 			<groupId>io.goeasy</groupId>
 			<artifactId>goeasy-sdk</artifactId>

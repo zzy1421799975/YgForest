@@ -81,8 +81,11 @@ public class PiService {
 		Pi record = selectByPid(pId);	
 		if (record != null) {
 			if(!record.getpPassword().equals(SimpleHashUtils.toMd5Salt(String.valueOf(pId), pPassword))) {
+				System.out.println(SimpleHashUtils.toMd5Salt(String.valueOf(pId), pPassword));
 				return -2;
 			}
+			
+			
 			UserPiRelation upr = new UserPiRelation();
 			upr.setuId(uId);
 			upr.setpId(pId);
