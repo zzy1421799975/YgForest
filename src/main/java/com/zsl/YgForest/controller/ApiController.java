@@ -109,7 +109,7 @@ public class ApiController {
 		}
 		filePath += adf.format(new Date()) + ".jpg";
 		Part part;
-		try {
+		try {  
 			part = request.getPart("file");
 			part.write(path + filePath);
 
