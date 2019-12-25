@@ -28,6 +28,10 @@ public class Image implements Serializable{
     @JsonSerialize(using=ToStringSerializer.class)
     @Column(name = "i_density")
     private Double iDensity;
+    
+    @JsonSerialize(using=ToStringSerializer.class)
+    @Column(name = "i_disdensity")
+    private Double disDensity;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "i_time")
@@ -102,6 +106,16 @@ public class Image implements Serializable{
     public void setiTime(Date iTime) {
         this.iTime = iTime;
     }
+
+    
+    
+	public Double getDisDensity() {
+		return disDensity;
+	}
+
+	public void setDisDensity(Double disDensity) {
+		this.disDensity = disDensity;
+	}
 
 	@Override
 	public String toString() {

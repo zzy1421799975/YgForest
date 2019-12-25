@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.github.pagehelper.PageInfo;
 import com.zsl.YgForest.configuration.shiro.ShiroUtils;
+import com.zsl.YgForest.entity.Image;
 import com.zsl.YgForest.entity.Message;
 import com.zsl.YgForest.entity.Notice;
 import com.zsl.YgForest.entity.Pi;
@@ -122,7 +124,7 @@ public class ShowController {
 		m.addAttribute("pagelist", imageService.selectListByPid(pId, pageNum, 10));
 		return "user/pi-image";
 	}
-
+	
 	@RequestMapping(value = { "/datalist" })
 	public String showData(Integer pId, Integer pageNum, Model m) {
 		User user = ShiroUtils.getPrincipal();
